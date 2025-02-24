@@ -1,0 +1,30 @@
+{
+    "page": 1,
+    "results": [
+        {
+            "adult": false,
+            "backdrop_path": "/wQEW3xLrQAThu1GvqpsKQyejrYS.jpg",
+            "genre_ids": [
+                16,
+                10765,
+                18,
+                10759
+            ],
+            "id": 94605,
+            "origin_country": [
+                "US"
+            ],
+            "original_language": "en",
+            "original_name": "Arcane",
+            "overview": "Amid the stark discord of twin cities Piltover and Zaun, two sisters fight on rival sides of a war between magic technologies and clashing convictions.",
+            "popularity": 69.183,
+            "poster_path": "/fqldf2t8ztc9aiwn3k6mlX3tvRT.jpg",
+            "first_air_date": "2021-11-06",
+            "name": "Arcane",
+            "vote_average": 8.781,
+            "vote_count": 4918
+        }
+    ],
+    "total_pages": 1,
+    "total_results": 5
+}

@@ -17,8 +17,7 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
     super.initState();
     Future.microtask(() {
       if (!mounted) return;
-      Provider.of<TopRatedMoviesNotifier>(context, listen: false)
-          .fetchTopRatedMovies();
+      context.read<TopRatedMoviesNotifier>().fetchTopRatedMovies();
     });
   }
 

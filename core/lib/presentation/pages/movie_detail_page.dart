@@ -23,10 +23,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     super.initState();
     Future.microtask(() {
       if (!mounted) return;
-      Provider.of<MovieDetailNotifier>(context, listen: false)
-          .fetchMovieDetail(widget.id);
-      Provider.of<MovieDetailNotifier>(context, listen: false)
-          .loadWatchlistStatus(widget.id);
+      context.read<MovieDetailNotifier>().fetchMovieDetail(widget.id);
+      context.read<MovieDetailNotifier>().loadWatchlistStatus(widget.id);
     });
   }
 
@@ -112,21 +110,17 @@ class DetailContent extends StatelessWidget {
                                   iconColor: kRichBlack),
                               onPressed: () async {
                                 if (!isAddedWatchlist) {
-                                  await Provider.of<MovieDetailNotifier>(
-                                          context,
-                                          listen: false)
+                                  await context.read<MovieDetailNotifier>()
                                       .addWatchlist(movie);
                                 } else {
-                                  await Provider.of<MovieDetailNotifier>(
-                                          context,
-                                          listen: false)
+                                  await context.read<MovieDetailNotifier>()
                                       .removeFromWatchlist(movie);
                                 }
 
                                 if (!context.mounted) return;
 
                                 final message = context
-                                    .read()<MovieDetailNotifier>()
+                                    .read<MovieDetailNotifier>()
                                     .watchlistMessage;
 
                                 if (message ==

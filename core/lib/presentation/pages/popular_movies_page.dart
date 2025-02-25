@@ -17,7 +17,7 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
     super.initState();
     Future.microtask(() {
       if (!mounted) return;
-      Provider.of<PopularMoviesNotifier>(context, listen: false)
+      context.read<PopularMoviesNotifier>()
           .fetchPopularMovies();
     });
   }

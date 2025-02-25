@@ -42,6 +42,9 @@ class MovieDetailNotifier extends ChangeNotifier {
   String _message = '';
   String get message => _message;
 
+  String _watchlistMessage = '';
+  String get watchlistMessage => _watchlistMessage;
+
   bool _isAddedtoWatchlist = false;
   bool get isAddedToWatchlist => _isAddedtoWatchlist;
 
@@ -75,9 +78,6 @@ class MovieDetailNotifier extends ChangeNotifier {
       },
     );
   }
-
-  String _watchlistMessage = '';
-  String get watchlistMessage => _watchlistMessage;
 
   Future<void> addWatchlist(MovieDetail movie) async {
     final result = await saveWatchlist.executeMovie(movie);

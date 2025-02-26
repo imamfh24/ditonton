@@ -671,33 +671,33 @@ class MockTvLocalDataSource extends _i1.Mock implements _i21.TvLocalDataSource {
   }
 
   @override
-  _i7.Future<String> insertWatchlist(_i17.WatchlistTable? movie) =>
+  _i7.Future<String> insertWatchlist(_i17.WatchlistTable? tv) =>
       (super.noSuchMethod(
         Invocation.method(
           #insertWatchlist,
-          [movie],
+          [tv],
         ),
         returnValue: _i7.Future<String>.value(_i18.dummyValue<String>(
           this,
           Invocation.method(
             #insertWatchlist,
-            [movie],
+            [tv],
           ),
         )),
       ) as _i7.Future<String>);
 
   @override
-  _i7.Future<String> removeWatchlist(_i17.WatchlistTable? movie) =>
+  _i7.Future<String> removeWatchlist(_i17.WatchlistTable? tv) =>
       (super.noSuchMethod(
         Invocation.method(
           #removeWatchlist,
-          [movie],
+          [tv],
         ),
         returnValue: _i7.Future<String>.value(_i18.dummyValue<String>(
           this,
           Invocation.method(
             #removeWatchlist,
-            [movie],
+            [tv],
           ),
         )),
       ) as _i7.Future<String>);

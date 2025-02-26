@@ -3,8 +3,8 @@ import 'package:ditonton/data/datasources/db/database_helper.dart';
 import 'package:ditonton/data/models/watchlist_table.dart';
 
 abstract class TvLocalDataSource {
-  Future<String> insertWatchlist(WatchlistTable movie);
-  Future<String> removeWatchlist(WatchlistTable movie);
+  Future<String> insertWatchlist(WatchlistTable tv);
+  Future<String> removeWatchlist(WatchlistTable tv);
   Future<WatchlistTable?> getTvById(int id);
   Future<List<WatchlistTable>> getWatchlistTv();
 }

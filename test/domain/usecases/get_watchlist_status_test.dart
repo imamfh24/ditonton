@@ -1,4 +1,3 @@
-import 'package:ditonton/domain/usecases/get_watchlist_movies.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -16,12 +15,22 @@ void main() {
     usecase = GetWatchListStatus(mockMovieRepository, mockTvRepository);
   });
 
-  test('should get watchlist status from repository', () async {
+  test('should get watchlist movie status from repository', () async {
     // arrange
     when(mockMovieRepository.isAddedToWatchlist(1))
         .thenAnswer((_) async => true);
     // act
     final result = await usecase.executeMovie(1);
+    // assert
+    expect(result, true);
+  });
+
+  test('should get watchlist tv status from repository', () async {
+    // arrange
+    when(mockTvRepository.isTvAddedToWatchlist(1))
+        .thenAnswer((_) async => true);
+    // act
+    final result = await usecase.executeTv(1);
     // assert
     expect(result, true);
   });

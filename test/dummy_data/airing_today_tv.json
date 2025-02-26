@@ -3,23 +3,19 @@
     "results": [
         {
             "adult": false,
-            "backdrop_path": "/81FKp9UMwZZ7Xk2ksV6z8qjG6pU.jpg",
-            "genre_ids": [
-                10764
-            ],
-            "id": 85231,
-            "origin_country": [
-                "ES"
-            ],
-            "original_language": "es",
-            "original_name": "GH Dúo",
-            "overview": "Guitar Hero",
-            "popularity": 2789.322,
-            "poster_path": "/sgPv3qMYHKwxz9KQxjyQokmPUHj.jpg",
-            "first_air_date": "2019-01-08",
-            "name": "GH Dúo",
-            "vote_average": 7.3,
-            "vote_count": 3
+            "backdrop_path": "backdropPath",
+            "genre_ids": [1, 2, 3],
+            "id": 1,
+            "origin_country": ["en"],
+            "original_language": "originalLanguage",
+            "original_name": "originalName",
+            "overview": "overview",
+            "popularity": 1,
+            "poster_path": "posterPath",
+            "first_air_date": "2025-02-26",
+            "name": "name",
+            "vote_average": 1,
+            "vote_count": 1
         }
     ],
     "total_pages": 14,

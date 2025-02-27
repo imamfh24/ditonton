@@ -35,10 +35,6 @@ class _TvTopRatedPageState extends State<TvTopRatedPage> {
             } else if (data.state == RequestState.Loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final result = data.tvTopRated[index];
-                  if (result.backdropPath == null || result.overview == null) {
-                    return SizedBox();
-                  }
                   return TvCardList(data.tvTopRated[index]);
                 },
                 itemCount: data.tvTopRated.length,

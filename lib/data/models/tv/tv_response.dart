@@ -4,7 +4,7 @@ import 'package:ditonton/data/models/tv/tv_model.dart';
 import 'package:equatable/equatable.dart';
 
 class TvResponse extends Equatable {
-  List<TvModel> results;
+  final List<TvModel> results;
 
   TvResponse({
     required this.results,

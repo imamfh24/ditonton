@@ -35,10 +35,6 @@ class _TvAiringTodayPageState extends State<TvAiringTodayPage> {
             } else if (data.state == RequestState.Loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final result = data.tvAiringToday[index];
-                  if (result.backdropPath == null || result.overview == null) {
-                    return SizedBox();
-                  }
                   return TvCardList(data.tvAiringToday[index]);
                 },
                 itemCount: data.tvAiringToday.length,

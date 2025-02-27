@@ -48,11 +48,7 @@ class SearchTvPage extends StatelessWidget {
                     child: ListView.builder(
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
-                        final result = data.searchResult[index];
-                        if (result.backdropPath == null) {
-                          return SizedBox();
-                        }
-                        return TvCardList(result);
+                        return TvCardList(data.searchResult[index]);
                       },
                       itemCount: result.length,
                     ),

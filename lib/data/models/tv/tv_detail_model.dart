@@ -5,17 +5,17 @@ import 'package:ditonton/domain/entities/tv_detail.dart';
 import 'package:equatable/equatable.dart';
 
 class TvDetailModel extends Equatable {
-  int id;
-  bool? adult;
-  String? backdropPath;
-  List<GenreModel>? genres;
-  String? name;
-  String? originalName;
-  String? overview;
-  double? popularity;
-  String? posterPath;
-  double? voteAverage;
-  int? voteCount;
+  final int id;
+  final bool adult;
+  final String? backdropPath;
+  final List<GenreModel> genres;
+  final String name;
+  final String originalName;
+  final String overview;
+  final double popularity;
+  final String? posterPath;
+  final double voteAverage;
+  final int voteCount;
 
   TvDetailModel({
     required this.id,
@@ -34,6 +34,8 @@ class TvDetailModel extends Equatable {
   factory TvDetailModel.fromRawJson(String str) =>
       TvDetailModel.fromJson(json.decode(str));
 
+  String toRawJson() => json.encode(toJson());
+
   factory TvDetailModel.fromJson(Map<String, dynamic> json) => TvDetailModel(
         id: json["id"],
         adult: json["adult"],
@@ -49,14 +51,26 @@ class TvDetailModel extends Equatable {
         voteCount: json["vote_count"],
       );
 
-  
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "adult": adult,
+        "backdrop_path": backdropPath,
+        "genres": List<dynamic>.from(genres.map((x) => x.toJson())),
+        "name": name,
+        "original_name": originalName,
+        "overview": overview,
+        "popularity": popularity,
+        "poster_path": posterPath,
+        "vote_average": voteAverage,
+        "vote_count": voteCount,
+      };
 
   TvDetail toEntity() {
     return TvDetail(
       id: id,
       adult: adult,
       backdropPath: backdropPath,
-      genres: genres?.map((genre) => genre.toEntity()).toList(),
+      genres: this.genres.map((genre) => genre.toEntity()).toList(),
       name: name,
       originalName: originalName,
       overview: overview,

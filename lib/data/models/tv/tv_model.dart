@@ -4,20 +4,20 @@ import 'package:ditonton/domain/entities/tv.dart';
 import 'package:equatable/equatable.dart';
 
 class TvModel extends Equatable {
-  bool? adult;
-  String? backdropPath;
-  List<int>? genreIds;
-  int id;
-  List<String>? originCountry;
-  String? originalLanguage;
-  String? originalName;
-  String? overview;
-  double? popularity;
-  String? posterPath;
-  DateTime? firstAirDate;
-  String? name;
-  double? voteAverage;
-  int? voteCount;
+  final bool adult;
+  final String? backdropPath;
+  final List<int> genreIds;
+  final int id;
+  final List<String> originCountry;
+  final String originalLanguage;
+  final String originalName;
+  final String overview;
+  final double popularity;
+  final String? posterPath;
+  final DateTime? firstAirDate;
+  final String name;
+  final double voteAverage;
+  final int voteCount;
 
   TvModel({
     required this.adult,
@@ -79,9 +79,9 @@ class TvModel extends Equatable {
   Map<String, dynamic> toJson() => {
         "adult": adult,
         "backdrop_path": backdropPath,
-        "genre_ids": List<dynamic>.from(genreIds!.map((x) => x)),
+        "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
         "id": id,
-        "origin_country": List<dynamic>.from(originCountry!.map((x) => x)),
+        "origin_country": List<dynamic>.from(originCountry.map((x) => x)),
         "original_language": originalLanguage,
         "original_name": originalName,
         "overview": overview,

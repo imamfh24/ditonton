@@ -1,32 +1,32 @@
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/tv_top_rated_notifier.dart';
+import 'package:ditonton/presentation/provider/tv_airing_today_notifier.dart';
 import 'package:ditonton/presentation/widgets/tv_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TvTopRatedPage extends StatefulWidget {
-  static const ROUTE_NAME = '/tv-top-rated';
+class TvAiringTodayPage extends StatefulWidget {
+  static const ROUTE_NAME = '/tv-airing-today';
 
   @override
-  _TvTopRatedPageState createState() => _TvTopRatedPageState();
+  _TvAiringTodayPageState createState() => _TvAiringTodayPageState();
 }
 
-class _TvTopRatedPageState extends State<TvTopRatedPage> {
+class _TvAiringTodayPageState extends State<TvAiringTodayPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => context.read<TvTopRatedNotifier>().fetchTvTopRated());
+    Future.microtask(() => context.read<TvAiringTodayNotifier>().fetchTvAiringToday());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('TV Top Rated'),
+        title: Text('Airing Today TV'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<TvTopRatedNotifier>(
+        child: Consumer<TvAiringTodayNotifier>(
           builder: (context, data, child) {
             if (data.state == RequestState.Loading) {
               return Center(
@@ -35,13 +35,13 @@ class _TvTopRatedPageState extends State<TvTopRatedPage> {
             } else if (data.state == RequestState.Loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final result = data.tvTopRated[index];
+                  final result = data.tvAiringToday[index];
                   if (result.backdropPath == null || result.overview == null) {
                     return SizedBox();
                   }
-                  return TvCardList(data.tvTopRated[index]);
+                  return TvCardList(data.tvAiringToday[index]);
                 },
-                itemCount: data.tvTopRated.length,
+                itemCount: data.tvAiringToday.length,
               );
             } else {
               return Center(

@@ -3,6 +3,7 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/search_tv_page.dart';
+import 'package:ditonton/presentation/pages/tv_airing_today_page.dart';
 import 'package:ditonton/presentation/pages/tv_detail_page.dart';
 import 'package:ditonton/presentation/pages/tv_popular_page.dart';
 import 'package:ditonton/presentation/pages/tv_top_rated_page.dart';
@@ -97,9 +98,10 @@ class _HomeTvPageState extends State<HomeTvPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Airing Today',
-                style: kHeading6,
+              _buildSubHeading(
+                title: 'Airing Today',
+                onTap: () =>
+                    Navigator.pushNamed(context, TvAiringTodayPage.ROUTE_NAME),
               ),
               Consumer<TvListNotifier>(
                 builder: (context, data, child) {

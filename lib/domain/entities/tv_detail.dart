@@ -4,16 +4,16 @@ import 'package:ditonton/domain/entities/genre.dart';
 
 class TvDetail extends Equatable {
   int id;
-  bool adult;
-  String backdropPath;
-  List<Genre> genres;
-  String name;
-  String originalName;
-  String overview;
-  double popularity;
-  String posterPath;
-  double voteAverage;
-  int voteCount;
+  bool? adult;
+  String? backdropPath;
+  List<Genre>? genres;
+  String? name;
+  String? originalName;
+  String? overview;
+  double? popularity;
+  String? posterPath;
+  double? voteAverage;
+  int? voteCount;
   TvDetail({
     required this.id,
     required this.adult,

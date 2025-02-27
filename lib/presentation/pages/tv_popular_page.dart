@@ -35,6 +35,10 @@ class _TvPopularPageState extends State<TvPopularPage> {
             } else if (data.state == RequestState.Loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
+                  final result = data.tvPopular[index];
+                  if (result.backdropPath == null || result.overview == null) {
+                    return SizedBox();
+                  }
                   return TvCardList(data.tvPopular[index]);
                 },
                 itemCount: data.tvPopular.length,

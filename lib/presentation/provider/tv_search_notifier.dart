@@ -29,8 +29,18 @@ class TvSearchNotifier extends ChangeNotifier {
         notifyListeners();
       },
       (data) {
-        _searchResult = data;
-        _state = RequestState.Loaded;
+        _searchResult = data
+            .where((item) =>
+                item.backdropPath != null &&
+                (item.overview != null && item.overview!.isNotEmpty))
+            .toList();
+
+        if (_searchResult.isEmpty) {
+          _state = RequestState.Error;
+          _message = "Tidak ada data";
+        } else {
+          _state = RequestState.Loaded;
+        }
         notifyListeners();
       },
     );

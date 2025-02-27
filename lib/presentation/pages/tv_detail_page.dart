@@ -105,7 +105,7 @@ class TvDetailContent extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              tv.name,
+                              tv.name!,
                               style: kHeading5,
                             ),
                             ElevatedButton(
@@ -158,12 +158,12 @@ class TvDetailContent extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              _showGenres(tv.genres),
+                              _showGenres(tv.genres!),
                             ),
                             Row(
                               children: [
                                 RatingBarIndicator(
-                                  rating: tv.voteAverage / 2,
+                                  rating: (tv.voteAverage! / 2),
                                   itemCount: 5,
                                   itemBuilder: (context, index) => Icon(
                                     Icons.star,
@@ -171,7 +171,7 @@ class TvDetailContent extends StatelessWidget {
                                   ),
                                   itemSize: 24,
                                 ),
-                                Text('${tv.voteAverage}')
+                                Text('${tv.voteAverage! / 2}')
                               ],
                             ),
                             SizedBox(height: 16),
@@ -180,7 +180,7 @@ class TvDetailContent extends StatelessWidget {
                               style: kHeading6,
                             ),
                             Text(
-                              tv.overview,
+                              tv.overview!,
                             ),
                             SizedBox(height: 16),
                             Text(

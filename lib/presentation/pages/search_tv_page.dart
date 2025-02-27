@@ -49,6 +49,9 @@ class SearchTvPage extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
                         final result = data.searchResult[index];
+                        if (result.backdropPath == null) {
+                          return SizedBox();
+                        }
                         return TvCardList(result);
                       },
                       itemCount: result.length,
@@ -56,7 +59,12 @@ class SearchTvPage extends StatelessWidget {
                   );
                 } else {
                   return Expanded(
-                    child: Container(),
+                    child: Center(
+                      child: Text(
+                        data.message,
+                        style: TextStyle(color: kMikadoYellow),
+                      ),
+                    ),
                   );
                 }
               },

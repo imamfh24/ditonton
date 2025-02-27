@@ -28,8 +28,18 @@ class TvPopularNotifier extends ChangeNotifier {
         _message = failure.message;
       },
       (data) {
-        _state = RequestState.Loaded;
-        _tvPopular = data;
+        _tvPopular = data
+            .where((item) =>
+                item.backdropPath != null &&
+                (item.overview != null && item.overview!.isNotEmpty))
+            .toList();
+
+        if (_tvPopular.isEmpty) {
+          _state = RequestState.Error;
+          _message = "Tidak ada data";
+        } else {
+          _state = RequestState.Loaded;
+        }
       },
     );
     notifyListeners();

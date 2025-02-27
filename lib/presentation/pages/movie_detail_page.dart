@@ -173,7 +173,7 @@ class DetailContent extends StatelessWidget {
                                   ),
                                   itemSize: 24,
                                 ),
-                                Text('${movie.voteAverage}')
+                                Text('${movie.voteAverage / 2}')
                               ],
                             ),
                             SizedBox(height: 16),

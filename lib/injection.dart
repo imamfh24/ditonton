@@ -31,13 +31,18 @@ import 'package:core/presentation/provider/tv_list_notifier.dart';
 import 'package:core/presentation/provider/tv_popular_notifier.dart';
 import 'package:core/presentation/provider/tv_top_rated_notifier.dart';
 import 'package:core/presentation/provider/watchlist_notifier.dart';
+import 'package:core/utils/ssl_pinning.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 import 'package:search/search.dart';
 
 final locator = GetIt.instance;
 
-void init() {
+Future <void> init() async  {
+  // Http SSL Pinning
+  final secureClient = await SslPinningHttpClient.getClient();
+  locator.registerLazySingleton<http.Client>(() => secureClient);
+
   // provider
   locator.registerFactory(
     () => MovieListNotifier(
@@ -99,7 +104,7 @@ void init() {
       getTvAiringToday: locator(),
     ),
   );
-  
+
   locator.registerFactory(
     () => TvTopRatedNotifier(
       getTvTopRated: locator(),
@@ -162,6 +167,5 @@ void init() {
   // helper
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
-  // external
-  locator.registerLazySingleton(() => http.Client());
+  
 }

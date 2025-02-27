@@ -20,14 +20,20 @@ import 'package:core/presentation/provider/tv_list_notifier.dart';
 import 'package:core/presentation/provider/tv_popular_notifier.dart';
 import 'package:core/presentation/provider/tv_top_rated_notifier.dart';
 import 'package:core/presentation/provider/watchlist_notifier.dart';
+import 'package:ditonton/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ditonton/injection.dart' as di;
 import 'package:search/search.dart';
 
-void main() {
-  di.init();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 

@@ -34,6 +34,7 @@ import 'package:core/presentation/provider/watchlist_notifier.dart';
 import 'package:core/utils/ssl_pinning.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
+import 'package:search/presentation/bloc/movie_search_bloc.dart';
 import 'package:search/search.dart';
 
 final locator = GetIt.instance;
@@ -120,6 +121,9 @@ Future <void> init() async  {
     () => TvPopularNotifier(
       getTvPopular: locator(),
     ),
+  );
+  locator.registerFactory(
+    () => MovieSearchBloc(locator()),
   );
 
   // use case

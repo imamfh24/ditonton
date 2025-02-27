@@ -106,3 +106,5 @@ final testWatchlistMap = {
   'posterPath': 'posterPath',
   'title': 'title',
 };
+
+final tQuery = 'spiderman';

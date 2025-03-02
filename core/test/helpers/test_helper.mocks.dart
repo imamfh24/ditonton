@@ -30,7 +30,7 @@ import 'package:dartz/dartz.dart' as _i2;
 import 'package:http/http.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i18;
-import 'package:sqflite/sqflite.dart' as _i23;
+import 'package:sqflite_sqlcipher/sqflite.dart' as _i23;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -320,14 +320,14 @@ class MockTvRepository extends _i1.Mock implements _i11.TvRepository {
 
   @override
   _i7.Future<_i2.Either<_i8.Failure, String>> saveTvWatchlist(
-    _i13.TvDetail? movie,
+    _i13.TvDetail? data,
   ) =>
       (super.noSuchMethod(
-            Invocation.method(#saveTvWatchlist, [movie]),
+            Invocation.method(#saveTvWatchlist, [data]),
             returnValue: _i7.Future<_i2.Either<_i8.Failure, String>>.value(
               _FakeEither_0<_i8.Failure, String>(
                 this,
-                Invocation.method(#saveTvWatchlist, [movie]),
+                Invocation.method(#saveTvWatchlist, [data]),
               ),
             ),
           )
@@ -335,14 +335,14 @@ class MockTvRepository extends _i1.Mock implements _i11.TvRepository {
 
   @override
   _i7.Future<_i2.Either<_i8.Failure, String>> removeTvWatchlist(
-    _i13.TvDetail? movie,
+    _i13.TvDetail? data,
   ) =>
       (super.noSuchMethod(
-            Invocation.method(#removeTvWatchlist, [movie]),
+            Invocation.method(#removeTvWatchlist, [data]),
             returnValue: _i7.Future<_i2.Either<_i8.Failure, String>>.value(
               _FakeEither_0<_i8.Failure, String>(
                 this,
-                Invocation.method(#removeTvWatchlist, [movie]),
+                Invocation.method(#removeTvWatchlist, [data]),
               ),
             ),
           )

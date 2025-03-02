@@ -1,12 +1,10 @@
-import 'package:core/presentation/provider/tv_airing_today_notifier.dart';
+import 'package:core/presentation/bloc/tv/airing_today/tv_airing_today_bloc.dart';
 import 'package:core/presentation/widgets/tv_card_list.dart';
-import 'package:core/utils/state_enum.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TvAiringTodayPage extends StatefulWidget {
   const TvAiringTodayPage({super.key});
-
 
   @override
   State<TvAiringTodayPage> createState() => _TvAiringTodayPageState();
@@ -16,8 +14,10 @@ class _TvAiringTodayPageState extends State<TvAiringTodayPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-        () => context.read<TvAiringTodayNotifier>().fetchTvAiringToday());
+    Future.microtask(() {
+      if (!mounted) return;
+      context.read<TvAiringTodayBloc>().add(TvAiringTodayFetch());
+    });
   }
 
   @override
@@ -28,24 +28,26 @@ class _TvAiringTodayPageState extends State<TvAiringTodayPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<TvAiringTodayNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.loading) {
+        child: BlocBuilder<TvAiringTodayBloc, TvAiringTodayState>(
+          builder: (context, state) {
+            if (state is TvAiringTodayLoading) {
               return Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.loaded) {
+            } else if (state is TvAiringTodayHasData) {
               return ListView.builder(
-                itemBuilder: (context, index) {
-                  return TvCardList(data.tvAiringToday[index]);
-                },
-                itemCount: data.tvAiringToday.length,
+                itemBuilder: (context, index) =>
+                    TvCardList(state.results[index]),
+                itemCount: state.results.length,
+              );
+            } else if (state is TvAiringTodayError) {
+              return Expanded(
+                child: Center(
+                  child: Text(state.message),
+                ),
               );
             } else {
-              return Center(
-                key: Key('error_message'),
-                child: Text(data.message),
-              );
+              return Container();
             }
           },
         ),

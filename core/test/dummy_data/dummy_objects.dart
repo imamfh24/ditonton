@@ -56,6 +56,8 @@ final testTv = Tv(
   voteCount: 1,
 );
 
+final testId = 1;
+
 final testTvList = [testTv];
 
 final testTvDetail = TvDetail(

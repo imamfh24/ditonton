@@ -1,0 +1,1 @@
+enum WatchType { movie, tv }

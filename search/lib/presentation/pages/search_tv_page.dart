@@ -1,14 +1,13 @@
-import '../providers/tv_search_notifier.dart';
+import 'package:core/domain/entities/tv.dart';
 import 'package:core/presentation/widgets/tv_card_list.dart';
-import 'package:core/styles/colors.dart';
 import 'package:core/styles/text_styles.dart';
-import 'package:core/utils/state_enum.dart';
+import 'package:core/utils/watch_type.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:search/presentation/bloc/search/search_bloc.dart';
 
 class SearchTvPage extends StatelessWidget {
   const SearchTvPage({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +21,10 @@ class SearchTvPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
-              onSubmitted: (query) {
-                Provider.of<TvSearchNotifier>(context, listen: false)
-                    .fetchTvSearch(query);
+              onChanged: (query) {
+                context
+                    .read<SearchBloc>()
+                    .add(OnQueryChangeEvent(query, WatchType.tv));
               },
               decoration: InputDecoration(
                 hintText: 'Search title',
@@ -38,32 +38,31 @@ class SearchTvPage extends StatelessWidget {
               'Search Result',
               style: kHeading6,
             ),
-            Consumer<TvSearchNotifier>(
-              builder: (context, data, child) {
-                if (data.state == RequestState.loading) {
+            BlocBuilder<SearchBloc, SearchState>(
+              builder: (context, state) {
+                if (state is SearchLoading) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (data.state == RequestState.loaded) {
-                  final result = data.searchResult;
+                } else if (state is SearchHasData<Tv>) {
+                  final result = state.result;
                   return Expanded(
                     child: ListView.builder(
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
-                        return TvCardList(data.searchResult[index]);
+                        return TvCardList(result[index]);
                       },
                       itemCount: result.length,
                     ),
                   );
-                } else {
+                } else if (state is SearchError) {
                   return Expanded(
                     child: Center(
-                      child: Text(
-                        data.message,
-                        style: TextStyle(color: kMikadoYellow),
-                      ),
+                      child: Text(state.message),
                     ),
                   );
+                } else {
+                  return Container();
                 }
               },
             ),

@@ -1,0 +1,1 @@
+genhtml coverage/test.info -o coverage --no-function-coverage --prefix /Users/ifa/Developer/Projects/Mobile/Flutter/ditonton

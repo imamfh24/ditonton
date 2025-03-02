@@ -1,12 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
 import 'package:core/domain/entities/tv.dart';
-import 'package:core/presentation/provider/tv_list_notifier.dart';
+import 'package:core/presentation/bloc/tv/list/tv_list_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeTvPage extends StatefulWidget {
-
   const HomeTvPage({super.key});
   @override
   State<HomeTvPage> createState() => _HomeTvPageState();
@@ -16,12 +15,13 @@ class _HomeTvPageState extends State<HomeTvPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () => context.read<TvListNotifier>()
-        ..fetchTvAiringToday()
-        ..fetchTvPopular()
-        ..fetchTvTopRated(),
-    );
+    Future.microtask(() {
+      if (!mounted) return;
+      context.read<TvListBloc>()
+        ..add(TvListFetchAiringToday())
+        ..add(TvListFetchPopular())
+        ..add(TvListFetchTopRated());
+    });
   }
 
   @override
@@ -45,7 +45,7 @@ class _HomeTvPageState extends State<HomeTvPage> {
               leading: Icon(Icons.movie),
               title: Text('Movies'),
               onTap: () {
-                Navigator.pushNamed(context, '/home');
+                Navigator.pushReplacementNamed(context, '/home');
               },
             ),
             ListTile(
@@ -93,57 +93,76 @@ class _HomeTvPageState extends State<HomeTvPage> {
             children: [
               _buildSubHeading(
                 title: 'Airing Today',
-                onTap: () =>
-                    Navigator.pushNamed(context, tvAiringTodayRoute),
+                onTap: () => Navigator.pushNamed(context, tvAiringTodayRoute),
               ),
-              Consumer<TvListNotifier>(
-                builder: (context, data, child) {
-                  final state = data.tvAiringState;
-                  if (state == RequestState.loading) {
+              BlocBuilder<TvListBloc, TvListState>(
+                builder: (context, state) {
+                  if (state is TvListAiringTodayLoading) {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (state == RequestState.loaded) {
-                    return TvList(data.tvAiringToday);
+                  } else if (state is TvListAiringTodayHasData) {
+                    final result = state.result;
+                    return TvList(result);
+                  } else if (state is TvListAiringTodayError) {
+                    return Expanded(
+                      child: Center(
+                        child: Text(state.message),
+                      ),
+                    );
                   } else {
-                    return Text('Failed');
+                    return Container();
                   }
                 },
               ),
               _buildSubHeading(
                 title: 'Popular',
-                onTap: () =>
-                    Navigator.pushNamed(context, tvPopularRoute),
+                onTap: () => Navigator.pushNamed(context, tvPopularRoute),
               ),
-              Consumer<TvListNotifier>(builder: (context, data, child) {
-                final state = data.tvPopularState;
-                if (state == RequestState.loading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state == RequestState.loaded) {
-                  return TvList(data.tvPopular);
-                } else {
-                  return Text('Failed');
-                }
-              }),
+              BlocBuilder<TvListBloc, TvListState>(
+                builder: (context, state) {
+                  if (state is TvListPopularLoading) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state is TvListPopularHasData) {
+                    final result = state.result;
+                    return TvList(result);
+                  } else if (state is TvListPopularError) {
+                    return Expanded(
+                      child: Center(
+                        child: Text(state.message),
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
               _buildSubHeading(
                 title: 'Top Rated',
-                onTap: () =>
-                    Navigator.pushNamed(context, tvTopRatedRoute),
+                onTap: () => Navigator.pushNamed(context, tvTopRatedRoute),
               ),
-              Consumer<TvListNotifier>(builder: (context, data, child) {
-                final state = data.tvTopRatedState;
-                if (state == RequestState.loading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state == RequestState.loaded) {
-                  return TvList(data.tvTopRated);
-                } else {
-                  return Text('Failed');
-                }
-              }),
+              BlocBuilder<TvListBloc, TvListState>(
+                builder: (context, state) {
+                  if (state is TvListTopRatedLoading) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state is TvListTopRatedHasData) {
+                    final result = state.result;
+                    return TvList(result);
+                  } else if (state is TvListTopRatedError) {
+                    return Expanded(
+                      child: Center(
+                        child: Text(state.message),
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
             ],
           ),
         ),

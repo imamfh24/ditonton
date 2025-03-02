@@ -1,11 +1,13 @@
+import 'package:core/domain/entities/movie.dart';
+import 'package:core/domain/entities/tv.dart';
+import 'package:core/presentation/bloc/watchlist/watchlist_bloc.dart';
 import 'package:core/presentation/pages/home_movie_page.dart';
 import 'package:core/presentation/pages/home_tv_page.dart';
-import 'package:core/presentation/provider/watchlist_notifier.dart';
 import 'package:core/styles/text_styles.dart';
-import 'package:core/utils/state_enum.dart';
 import 'package:core/utils/utils.dart';
+import 'package:core/utils/watch_type.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WatchlistPage extends StatefulWidget {
   const WatchlistPage({super.key});
@@ -18,11 +20,12 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () => context.read<WatchlistNotifier>()
-        ..fetchWatchlistMovies()
-        ..fetchWatchlistTv(),
-    );
+    Future.microtask(() {
+      if (!mounted) return;
+      context.read<WatchlistBloc>()
+        ..add(FetchWatchlist(WatchType.movie))
+        ..add(FetchWatchlist(WatchType.tv));
+    });
   }
 
   @override
@@ -33,9 +36,9 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
 
   @override
   void didPopNext() {
-    context.read<WatchlistNotifier>()
-      ..fetchWatchlistMovies()
-      ..fetchWatchlistTv();
+    context.read<WatchlistBloc>()
+      ..add(FetchWatchlist(WatchType.movie))
+      ..add(FetchWatchlist(WatchType.tv));
   }
 
   @override
@@ -53,24 +56,27 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
                 'Movies',
                 style: kHeading6,
               ),
-              Consumer<WatchlistNotifier>(
-                builder: (context, data, child) {
-                  if (data.watchlistState == RequestState.loading) {
+              BlocBuilder<WatchlistBloc, WatchlistState>(
+                builder: (context, state) {
+                  if (state is WatchlistLoading) {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (data.watchlistState == RequestState.loaded) {
-                    if (data.watchlistMovies.isEmpty) {
+                  } else if (state is WatchlistHasData<Movie>) {
+                    if (state.result.isEmpty) {
                       return Center(
                         child: Text('No Data'),
                       );
                     }
-                    return MovieList(data.watchlistMovies);
-                  } else {
-                    return Center(
-                      key: Key('error_message'),
-                      child: Text(data.message),
+                    return MovieList(state.result);
+                  } else if (state is WatchlistError) {
+                    return Expanded(
+                      child: Center(
+                        child: Text(state.message),
+                      ),
                     );
+                  } else {
+                    return Container();
                   }
                 },
               ),
@@ -78,24 +84,27 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
                 'TV',
                 style: kHeading6,
               ),
-              Consumer<WatchlistNotifier>(
-                builder: (context, data, child) {
-                  if (data.watchlistTvState == RequestState.loading) {
+              BlocBuilder<WatchlistBloc, WatchlistState>(
+                builder: (context, state) {
+                  if (state is WatchlistLoading) {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (data.watchlistTvState == RequestState.loaded) {
-                    if (data.watchlistTv.isEmpty) {
+                  } else if (state is WatchlistHasData<Tv>) {
+                    if (state.result.isEmpty) {
                       return Center(
                         child: Text('No Data'),
                       );
                     }
-                    return TvList(data.watchlistTv);
-                  } else {
-                    return Center(
-                      key: Key('error_message'),
-                      child: Text(data.message),
+                    return TvList(state.result);
+                  } else if (state is WatchlistError) {
+                    return Expanded(
+                      child: Center(
+                        child: Text(state.message),
+                      ),
                     );
+                  } else {
+                    return Container();
                   }
                 },
               ),

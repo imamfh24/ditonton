@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
 import 'package:core/domain/entities/movie.dart';
-import 'package:core/presentation/bloc/movie/list/movie_list_bloc.dart';
+import 'package:core/presentation/bloc/movie/movie_popular/movie_popular_bloc.dart';
+import 'package:core/presentation/bloc/movie/now_playing/movie_now_playing_bloc.dart';
+import 'package:core/presentation/bloc/movie/top_rated/movie_top_rated_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,10 +21,10 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
     Future.microtask(() {
       if (!mounted) return;
       context
-          .read<MovieListNowPlayingBloc>()
-          .add(MovieListFetchNowPlayingMovies());
-      context.read<MovieListPopularBloc>().add(MovieListFetchPopularMovies());
-      context.read<MovieListTopRatedBloc>().add(MovieListFetchTopRatedMovies());
+          .read<MovieNowPlayingBloc>()
+          .add(MovieNowPlayingFetch());
+      context.read<MoviePopularBloc>().add(MoviePopularFetch());
+      context.read<MovieTopRatedBloc>().add(MovieTopRatedFetch());
     });
   }
 
@@ -98,16 +100,16 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                 'Now Playing',
                 style: kHeading6,
               ),
-              BlocBuilder<MovieListNowPlayingBloc, MovieListState>(
+              BlocBuilder<MovieNowPlayingBloc, MovieNowPlayingState>(
                 builder: (context, state) {
-                  if (state is MovieListLoading) {
+                  if (state is MovieNowPlayingLoading) {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (state is MovieListHasData) {
+                  } else if (state is MovieNowPlayingHasData) {
                     final result = state.result;
                     return MovieList(result);
-                  } else if (state is MovieListError) {
+                  } else if (state is MovieNowPlayingError) {
                     return Expanded(
                       child: Center(
                         child: Text(state.message),
@@ -122,16 +124,16 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                 title: 'Popular',
                 onTap: () => Navigator.pushNamed(context, popularMovieRoute),
               ),
-              BlocBuilder<MovieListPopularBloc, MovieListState>(
+              BlocBuilder<MoviePopularBloc, MoviePopularState>(
                 builder: (context, state) {
-                  if (state is MovieListLoading) {
+                  if (state is MoviePopularLoading) {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (state is MovieListHasData) {
+                  } else if (state is MoviePopularHasData) {
                     final result = state.result;
                     return MovieList(result);
-                  } else if (state is MovieListError) {
+                  } else if (state is MoviePopularError) {
                     return Expanded(
                       child: Center(
                         child: Text(state.message),
@@ -146,16 +148,16 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                 title: 'Top Rated',
                 onTap: () => Navigator.pushNamed(context, topRatedRoute),
               ),
-              BlocBuilder<MovieListTopRatedBloc, MovieListState>(
+              BlocBuilder<MovieTopRatedBloc, MovieTopRatedState>(
                 builder: (context, state) {
-                  if (state is MovieListLoading) {
+                  if (state is MovieTopRatedLoading) {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (state is MovieListHasData) {
+                  } else if (state is MovieTopRatedHasData) {
                     final result = state.result;
                     return MovieList(result);
-                  } else if (state is MovieListError) {
+                  } else if (state is MovieTopRatedError) {
                     return Expanded(
                       child: Center(
                         child: Text(state.message),

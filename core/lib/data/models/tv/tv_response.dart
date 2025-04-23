@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:core/data/models/tv/tv_model.dart';
 import 'package:equatable/equatable.dart';
 
@@ -9,11 +7,6 @@ class TvResponse extends Equatable {
   const TvResponse({
     required this.results,
   });
-
-  factory TvResponse.fromRawJson(String str) =>
-      TvResponse.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
 
   factory TvResponse.fromJson(Map<String, dynamic> json) =>
       TvResponse(

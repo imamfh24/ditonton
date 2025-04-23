@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:core/data/models/genre_model.dart';
 import 'package:core/domain/entities/tv_detail.dart';
 import 'package:equatable/equatable.dart';
@@ -31,11 +29,6 @@ class TvDetailModel extends Equatable {
     required this.voteCount,
   });
 
-  factory TvDetailModel.fromRawJson(String str) =>
-      TvDetailModel.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
   factory TvDetailModel.fromJson(Map<String, dynamic> json) => TvDetailModel(
         id: json["id"],
         adult: json["adult"],
@@ -50,20 +43,6 @@ class TvDetailModel extends Equatable {
         voteAverage: json["vote_average"]?.toDouble(),
         voteCount: json["vote_count"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "adult": adult,
-        "backdrop_path": backdropPath,
-        "genres": List<dynamic>.from(genres.map((x) => x.toJson())),
-        "name": name,
-        "original_name": originalName,
-        "overview": overview,
-        "popularity": popularity,
-        "poster_path": posterPath,
-        "vote_average": voteAverage,
-        "vote_count": voteCount,
-      };
 
   TvDetail toEntity() {
     return TvDetail(

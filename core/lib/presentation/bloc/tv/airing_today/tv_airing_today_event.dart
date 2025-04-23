@@ -1,8 +1,6 @@
 part of 'tv_airing_today_bloc.dart';
 
-sealed class TvAiringTodayEvent extends Equatable {
-  @override
-  List<Object?> get props => [];
+sealed class TvAiringTodayEvent {
 }
 
 class TvAiringTodayFetch extends TvAiringTodayEvent {}

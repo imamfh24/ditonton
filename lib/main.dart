@@ -3,9 +3,9 @@ import 'package:core/core.dart';
 import 'package:core/presentation/bloc/movie/detail/movie_detail_bloc.dart';
 import 'package:core/presentation/bloc/movie/detail/recommendation/movie_detail_recommendation_bloc.dart';
 import 'package:core/presentation/bloc/movie/detail/watchlist/movie_detail_watchlist_cubit.dart';
+import 'package:core/presentation/bloc/movie/now_playing/movie_now_playing_bloc.dart';
 import 'package:core/presentation/bloc/tv/detail/recommendation/tv_detail_recommendation_bloc.dart';
 import 'package:core/presentation/bloc/tv/detail/watchlist/tv_detail_watchlist_cubit.dart';
-import 'package:core/presentation/bloc/movie/list/movie_list_bloc.dart';
 import 'package:core/presentation/bloc/movie/movie_popular/movie_popular_bloc.dart';
 import 'package:core/presentation/bloc/movie/top_rated/movie_top_rated_bloc.dart';
 import 'package:core/presentation/bloc/movie/watchlist/movie_watchlist_bloc.dart';
@@ -32,6 +32,7 @@ import 'package:search/search.dart';
 
 import 'package:ditonton/firebase_options.dart';
 import 'package:ditonton/injection.dart' as di;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -49,13 +50,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => di.locator<MovieListNowPlayingBloc>(),
-        ),
-        BlocProvider(
-          create: (_) => di.locator<MovieListPopularBloc>(),
-        ),
-        BlocProvider(
-          create: (_) => di.locator<MovieListTopRatedBloc>(),
+          create: (_) => di.locator<MovieNowPlayingBloc>(),
         ),
         BlocProvider(
           create: (_) => di.locator<MovieDetailBloc>(),
@@ -111,7 +106,9 @@ class MyApp extends StatelessWidget {
           primaryColor: kRichBlack,
           scaffoldBackgroundColor: kRichBlack,
           textTheme: kTextTheme,
-          drawerTheme: kDrawerTheme,
+          drawerTheme: DrawerThemeData(
+            backgroundColor: Colors.grey.shade700,
+          ),
         ),
         home: HomeMoviePage(),
         navigatorObservers: [routeObserver],

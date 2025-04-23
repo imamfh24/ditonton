@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:core/domain/entities/tv.dart';
 import 'package:core/domain/entities/tv_detail.dart';
 import 'package:core/domain/usecases/tv/get_tv_detail.dart';
 import 'package:equatable/equatable.dart';

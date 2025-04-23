@@ -20,6 +20,6 @@ const kColorScheme = ColorScheme(
   brightness: Brightness.dark,
 );
 
-final kDrawerTheme = DrawerThemeData(
-  backgroundColor: Colors.grey.shade700,
-);
+// final kDrawerTheme = DrawerThemeData(
+//   backgroundColor: Colors.grey.shade700,
+// );

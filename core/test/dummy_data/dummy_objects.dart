@@ -104,7 +104,7 @@ final testWatchlistTvTable = WatchlistTable(
 
 final testWatchlistMap = {
   'id': 1,
-  'overview': 'overview',
-  'posterPath': 'posterPath',
   'title': 'title',
+  'posterPath': 'posterPath',
+  'overview': 'overview',
 };

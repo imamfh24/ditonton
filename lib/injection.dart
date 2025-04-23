@@ -28,8 +28,8 @@ import 'package:core/domain/usecases/tv/save_tv_to_watchlist.dart';
 import 'package:core/presentation/bloc/movie/detail/movie_detail_bloc.dart';
 import 'package:core/presentation/bloc/movie/detail/recommendation/movie_detail_recommendation_bloc.dart';
 import 'package:core/presentation/bloc/movie/detail/watchlist/movie_detail_watchlist_cubit.dart';
-import 'package:core/presentation/bloc/movie/list/movie_list_bloc.dart';
 import 'package:core/presentation/bloc/movie/movie_popular/movie_popular_bloc.dart';
+import 'package:core/presentation/bloc/movie/now_playing/movie_now_playing_bloc.dart';
 import 'package:core/presentation/bloc/movie/top_rated/movie_top_rated_bloc.dart';
 import 'package:core/presentation/bloc/movie/watchlist/movie_watchlist_bloc.dart';
 import 'package:core/presentation/bloc/tv/airing_today/tv_airing_today_bloc.dart';
@@ -53,17 +53,7 @@ Future<void> init() async {
 
   // provider
   locator.registerFactory(
-    () => MovieListNowPlayingBloc(
-      locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => MovieListPopularBloc(
-      locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => MovieListTopRatedBloc(
+    () => MovieNowPlayingBloc(
       locator(),
     ),
   );

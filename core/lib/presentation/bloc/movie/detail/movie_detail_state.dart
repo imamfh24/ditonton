@@ -8,7 +8,6 @@ sealed class MovieDetailState extends Equatable {
 final class MovieDetailInitial extends MovieDetailState {}
 
 final class MovieDetailLoading extends MovieDetailState {}
-final class MovieDetailWatchlistLoading extends MovieDetailState {}
 
 final class MovieDetailError extends MovieDetailState {
   final String message;
@@ -26,48 +25,4 @@ final class MovieDetailHasData extends MovieDetailState {
 
   @override
   List<Object?> get props => [result];
-}
-
-final class MovieDetailRecommendationLoading extends MovieDetailState {}
-
-final class MovieDetailRecommendationError extends MovieDetailState {
-  final String message;
-
-  MovieDetailRecommendationError(this.message);
-
-  @override
-  List<Object?> get props => [];
-}
-
-final class MovieDetailRecommendationHasData extends MovieDetailState {
-  final List<Movie> result;
-
-  MovieDetailRecommendationHasData(this.result);
-
-  @override
-  List<Object?> get props => [result];
-}
-
-class MovieDetailMessage {
-  final String message;
-
-  const MovieDetailMessage({this.message = ''});
-}
-
-final class MovieDetailWatchlistMessage extends MovieDetailState {
-  final String message;
-
-  MovieDetailWatchlistMessage(this.message);
-
-  @override
-  List<Object?> get props => [];
-}
-
-class MovieDetailIsAddToWatchlist extends MovieDetailState {
-  final bool isAddedToWatchlist;
-
-  MovieDetailIsAddToWatchlist({this.isAddedToWatchlist = false});
-
-  @override
-  List<Object?> get props => [isAddedToWatchlist];
 }

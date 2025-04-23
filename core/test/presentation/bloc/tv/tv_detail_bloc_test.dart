@@ -1,8 +1,8 @@
 import 'package:core/presentation/bloc/tv/detail/tv_detail_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:core/utils/failure.dart';
-import 'package:core/domain/usecases/get_tv_detail.dart';
-import 'package:core/domain/usecases/get_tv_recommendations.dart';
+import 'package:core/domain/usecases/tv/get_tv_detail.dart';
+import 'package:core/domain/usecases/tv/get_tv_recommendations.dart';
 import 'package:core/domain/usecases/get_watchlist_status.dart';
 import 'package:core/domain/usecases/remove_watchlist.dart';
 import 'package:core/domain/usecases/save_watchlist.dart';

@@ -11,13 +11,14 @@ abstract class MovieLocalDataSource {
 
 class MovieLocalDataSourceImpl implements MovieLocalDataSource {
   final DatabaseHelper databaseHelper;
+  int watchlistType = 1;
 
   MovieLocalDataSourceImpl({required this.databaseHelper});
 
   @override
   Future<String> insertWatchlist(WatchlistTable movie) async {
     try {
-      await databaseHelper.insertWatchlist(movie, 1);
+      await databaseHelper.insertWatchlist(movie, watchlistType);
       return 'Added to Movie Watchlist';
     } catch (e) {
       throw DatabaseException(e.toString());
@@ -27,7 +28,7 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
   @override
   Future<String> removeWatchlist(WatchlistTable movie) async {
     try {
-      await databaseHelper.removeWatchlist(movie, 1);
+      await databaseHelper.removeWatchlist(movie, watchlistType);
       return 'Removed from Movie Watchlist';
     } catch (e) {
       throw DatabaseException(e.toString());
@@ -36,7 +37,7 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
 
   @override
   Future<WatchlistTable?> getMovieById(int id) async {
-    final result = await databaseHelper.getWatchlistById(id, 1);
+    final result = await databaseHelper.getWatchlistById(id, watchlistType);
     if (result != null) {
       return WatchlistTable.fromMap(result);
     } else {

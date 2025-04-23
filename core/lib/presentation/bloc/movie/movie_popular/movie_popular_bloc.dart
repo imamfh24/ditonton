@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:core/domain/entities/movie.dart';
-import 'package:core/domain/usecases/get_popular_movies.dart';
+import 'package:core/domain/usecases/movies/get_popular_movies.dart';
 import 'package:equatable/equatable.dart';
 
 part 'movie_popular_event.dart';

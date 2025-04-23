@@ -60,11 +60,11 @@ class TvModel extends Equatable {
   String toRawJson() => json.encode(toJson());
 
   factory TvModel.fromJson(Map<String, dynamic> json) => TvModel(
-        adult: json["adult"],
+        adult: json["adult"] ?? false,
         backdropPath: json["backdrop_path"],
-        genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
-        id: json["id"],
-        originCountry: List<String>.from(json["origin_country"].map((x) => x)),
+        genreIds: (json["genre_ids"] ?? []).cast<int>(),
+        id: json["id"] ?? 0,
+        originCountry: (json["origin_country"] ?? []).cast<String>(),
         originalLanguage: json["original_language"],
         originalName: json["original_name"],
         overview: json["overview"],

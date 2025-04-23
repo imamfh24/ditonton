@@ -1,9 +1,9 @@
 import 'package:core/presentation/bloc/tv/list/tv_list_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:core/utils/failure.dart';
-import 'package:core/domain/usecases/get_tv_airing_today.dart';
-import 'package:core/domain/usecases/get_tv_popular.dart';
-import 'package:core/domain/usecases/get_tv_top_rated.dart';
+import 'package:core/domain/usecases/tv/get_tv_airing_today.dart';
+import 'package:core/domain/usecases/tv/get_tv_popular.dart';
+import 'package:core/domain/usecases/tv/get_tv_top_rated.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

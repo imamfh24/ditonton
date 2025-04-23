@@ -10,5 +10,4 @@ class GetTvWatchlist {
   Future<Either<Failure, List<Tv>>> execute() {
     return _repository.getTvWatchlist();
   }
-  
 }

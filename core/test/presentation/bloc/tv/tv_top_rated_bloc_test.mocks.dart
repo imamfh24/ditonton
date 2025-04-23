@@ -7,7 +7,7 @@ import 'dart:async' as _i5;
 
 import 'package:core/domain/entities/tv.dart' as _i7;
 import 'package:core/domain/repositories/tv_repository.dart' as _i2;
-import 'package:core/domain/usecases/get_tv_top_rated.dart' as _i4;
+import 'package:core/domain/usecases/tv/get_tv_top_rated.dart' as _i4;
 import 'package:core/utils/failure.dart' as _i6;
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;

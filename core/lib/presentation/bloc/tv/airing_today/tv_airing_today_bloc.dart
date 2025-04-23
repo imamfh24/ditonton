@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:core/domain/entities/tv.dart';
-import 'package:core/domain/usecases/get_tv_airing_today.dart';
+import 'package:core/domain/usecases/tv/get_tv_airing_today.dart';
 import 'package:equatable/equatable.dart';
 
 part 'tv_airing_today_event.dart';

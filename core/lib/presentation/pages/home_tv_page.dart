@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
 import 'package:core/domain/entities/tv.dart';
-import 'package:core/presentation/bloc/tv/list/tv_list_bloc.dart';
+import 'package:core/presentation/bloc/tv/airing_today/tv_airing_today_bloc.dart';
+import 'package:core/presentation/bloc/tv/popular/tv_popular_bloc.dart';
+import 'package:core/presentation/bloc/tv/top_rated/tv_top_rated_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,10 +19,11 @@ class _HomeTvPageState extends State<HomeTvPage> {
     super.initState();
     Future.microtask(() {
       if (!mounted) return;
-      context.read<TvListBloc>()
-        ..add(TvListFetchAiringToday())
-        ..add(TvListFetchPopular())
-        ..add(TvListFetchTopRated());
+      context
+          .read<TvAiringTodayBloc>()
+          .add(TvAiringTodayFetch());
+      context.read<TvPopularBloc>().add(TvPopularFetch());
+      context.read<TvTopRatedBloc>().add(TvTopRatedFetch());
     });
   }
 
@@ -95,16 +98,16 @@ class _HomeTvPageState extends State<HomeTvPage> {
                 title: 'Airing Today',
                 onTap: () => Navigator.pushNamed(context, tvAiringTodayRoute),
               ),
-              BlocBuilder<TvListBloc, TvListState>(
+              BlocBuilder<TvAiringTodayBloc, TvAiringTodayState>(
                 builder: (context, state) {
-                  if (state is TvListAiringTodayLoading) {
+                  if (state is TvAiringTodayLoading) {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (state is TvListAiringTodayHasData) {
-                    final result = state.result;
+                  } else if (state is TvAiringTodayHasData) {
+                    final result = state.results;
                     return TvList(result);
-                  } else if (state is TvListAiringTodayError) {
+                  } else if (state is TvAiringTodayError) {
                     return Expanded(
                       child: Center(
                         child: Text(state.message),
@@ -119,16 +122,16 @@ class _HomeTvPageState extends State<HomeTvPage> {
                 title: 'Popular',
                 onTap: () => Navigator.pushNamed(context, tvPopularRoute),
               ),
-              BlocBuilder<TvListBloc, TvListState>(
+              BlocBuilder<TvPopularBloc, TvPopularState>(
                 builder: (context, state) {
-                  if (state is TvListPopularLoading) {
+                  if (state is TvPopularLoading) {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (state is TvListPopularHasData) {
-                    final result = state.result;
+                  } else if (state is TvPopularHasData) {
+                    final result = state.results;
                     return TvList(result);
-                  } else if (state is TvListPopularError) {
+                  } else if (state is TvPopularError) {
                     return Expanded(
                       child: Center(
                         child: Text(state.message),
@@ -143,16 +146,16 @@ class _HomeTvPageState extends State<HomeTvPage> {
                 title: 'Top Rated',
                 onTap: () => Navigator.pushNamed(context, tvTopRatedRoute),
               ),
-              BlocBuilder<TvListBloc, TvListState>(
+              BlocBuilder<TvTopRatedBloc, TvTopRatedState>(
                 builder: (context, state) {
-                  if (state is TvListTopRatedLoading) {
+                  if (state is TvTopRatedLoading) {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (state is TvListTopRatedHasData) {
-                    final result = state.result;
+                  } else if (state is TvTopRatedHasData) {
+                    final result = state.results;
                     return TvList(result);
-                  } else if (state is TvListTopRatedError) {
+                  } else if (state is TvTopRatedError) {
                     return Expanded(
                       child: Center(
                         child: Text(state.message),

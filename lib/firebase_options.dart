@@ -59,4 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'ditonton-fa856',
     storageBucket: 'ditonton-fa856.firebasestorage.app',
   );
+
 }

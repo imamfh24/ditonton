@@ -1,10 +1,8 @@
-import 'package:core/domain/entities/tv.dart';
 import 'package:core/presentation/widgets/tv_card_list.dart';
 import 'package:core/styles/text_styles.dart';
-import 'package:core/utils/watch_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:search/presentation/bloc/search/search_bloc.dart';
+import 'package:search/search.dart';
 
 class SearchTvPage extends StatelessWidget {
   const SearchTvPage({super.key});
@@ -23,8 +21,8 @@ class SearchTvPage extends StatelessWidget {
             TextField(
               onChanged: (query) {
                 context
-                    .read<SearchBloc>()
-                    .add(OnQueryChangeEvent(query, WatchType.tv));
+                    .read<TvSearchBloc>()
+                    .add(TvSearchOnQueryChangeEvent(query));
               },
               decoration: InputDecoration(
                 hintText: 'Search title',
@@ -38,31 +36,49 @@ class SearchTvPage extends StatelessWidget {
               'Search Result',
               style: kHeading6,
             ),
-            BlocBuilder<SearchBloc, SearchState>(
+            BlocBuilder<TvSearchBloc, TvSearchState>(
               builder: (context, state) {
-                if (state is SearchLoading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state is SearchHasData<Tv>) {
-                  final result = state.result;
-                  return Expanded(
-                    child: ListView.builder(
-                      padding: const EdgeInsets.all(8),
-                      itemBuilder: (context, index) {
-                        return TvCardList(result[index]);
-                      },
-                      itemCount: result.length,
-                    ),
-                  );
-                } else if (state is SearchError) {
-                  return Expanded(
-                    child: Center(
-                      child: Text(state.message),
-                    ),
-                  );
-                } else {
-                  return Container();
+                switch (state) {
+                  case TvSearchEmpty():
+                    return Expanded(
+                      child: Center(
+                        child: Text('Type to search'),
+                      ),
+                    );
+                  case TvSearchError():
+                    return Expanded(
+                      child: Center(
+                        child: Text(state.message),
+                      ),
+                    );
+                  case TvSearchHasData():
+                    final result = state.result;
+                    if (result.isEmpty) {
+                      return Expanded(
+                        child: Center(
+                          child: Text('No data found'),
+                        ),
+                      );
+                    }
+                    return Expanded(
+                      child: ListView.builder(
+                        padding: const EdgeInsets.all(8),
+                        itemBuilder: (context, index) {
+                          return TvCardList(result[index]);
+                        },
+                        itemCount: result.length,
+                      ),
+                    );
+                  case TvSearchLoading():
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  default:
+                    return Expanded(
+                      child: Center(
+                        child: Text('Something went wrong'),
+                      ),
+                    );   
                 }
               },
             ),

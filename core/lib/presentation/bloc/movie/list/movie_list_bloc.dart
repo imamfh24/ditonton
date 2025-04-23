@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:core/domain/entities/movie.dart';
-import 'package:core/domain/usecases/get_now_playing_movies.dart';
-import 'package:core/domain/usecases/get_popular_movies.dart';
-import 'package:core/domain/usecases/get_top_rated_movies.dart';
+import 'package:core/domain/usecases/movies/get_now_playing_movies.dart';
+import 'package:core/domain/usecases/movies/get_popular_movies.dart';
+import 'package:core/domain/usecases/movies/get_top_rated_movies.dart';
 import 'package:equatable/equatable.dart';
 
 part 'movie_list_event.dart';
